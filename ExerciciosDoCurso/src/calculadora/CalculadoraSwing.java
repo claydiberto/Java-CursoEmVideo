@@ -20,6 +20,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.text.Format;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 public class CalculadoraSwing extends JFrame {
@@ -48,9 +50,10 @@ public class CalculadoraSwing extends JFrame {
 	 * Create the frame.
 	 */
 	public CalculadoraSwing() {
+		setResizable(false);
 		setTitle("Super Calculadora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 312, 476);
+		setBounds(100, 100, 326, 464);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -62,11 +65,11 @@ public class CalculadoraSwing extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNmero = new JLabel("Número 1:");
+		JLabel lblNmero = new JLabel("Numero 1:");
 		lblNmero.setBounds(6, 6, 82, 16);
 		panel_1.add(lblNmero);
 		
-		JLabel lblNewLabel = new JLabel("Número 2:");
+		JLabel lblNewLabel = new JLabel("Numero 2:");
 		lblNewLabel.setBounds(6, 50, 82, 16);
 		panel_1.add(lblNewLabel);
 		
@@ -82,25 +85,25 @@ public class CalculadoraSwing extends JFrame {
 		
 		JPanel panResultados = new JPanel();
 		panResultados.setBackground(UIManager.getColor("Button.background"));
-		panResultados.setBounds(6, 148, 299, 300);
+		panResultados.setBounds(6, 148, 299, 277);
 		contentPane.add(panResultados);
 		panResultados.setLayout(null);
 		// Deixa o painel de resultados invisível ao iniciar o programa
 		panResultados.setVisible(false);
 		
-		JLabel lblSoma = new JLabel("Adição:");
+		JLabel lblSoma = new JLabel("Adicao:");
 		lblSoma.setBounds(6, 6, 129, 16);
 		panResultados.add(lblSoma);
 		
-		JLabel lblSubtrao = new JLabel("Subtração:");
+		JLabel lblSubtrao = new JLabel("Subtracao:");
 		lblSubtrao.setBounds(6, 34, 129, 16);
 		panResultados.add(lblSubtrao);
 		
-		JLabel lblMultiplicao = new JLabel("Multiplicação:");
+		JLabel lblMultiplicao = new JLabel("Multiplicacao:");
 		lblMultiplicao.setBounds(6, 62, 129, 16);
 		panResultados.add(lblMultiplicao);
 		
-		JLabel lblNewLabel_1 = new JLabel("Divisão:");
+		JLabel lblNewLabel_1 = new JLabel("Divisao:");
 		lblNewLabel_1.setBounds(6, 90, 129, 16);
 		panResultados.add(lblNewLabel_1);
 		
@@ -108,20 +111,20 @@ public class CalculadoraSwing extends JFrame {
 		lblResto.setBounds(6, 118, 129, 16);
 		panResultados.add(lblResto);
 		
-		JLabel lblRaizQuadrada = new JLabel("Raiz Quadrada:");
-		lblRaizQuadrada.setBounds(6, 194, 129, 16);
-		panResultados.add(lblRaizQuadrada);
+		JLabel lblNewLabelRaiz = new JLabel("Raiz Quadrada:");
+		lblNewLabelRaiz.setBounds(6, 172, 129, 16);
+		panResultados.add(lblNewLabelRaiz);
 		
 		JLabel lblNewLabel_2 = new JLabel("Raiz Cubica:");
-		lblNewLabel_2.setBounds(6, 222, 129, 16);
+		lblNewLabel_2.setBounds(6, 200, 129, 16);
 		panResultados.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Elevado ao Cubo:");
-		lblNewLabel_3.setBounds(6, 250, 129, 16);
+		lblNewLabel_3.setBounds(6, 228, 129, 16);
 		panResultados.add(lblNewLabel_3);
 		
 		JLabel lblValorAbsoluto = new JLabel("Valor Absoluto:");
-		lblValorAbsoluto.setBounds(6, 278, 129, 16);
+		lblValorAbsoluto.setBounds(6, 256, 129, 16);
 		panResultados.add(lblValorAbsoluto);
 		
 		JLabel lblAdi = new JLabel("0");
@@ -159,43 +162,37 @@ public class CalculadoraSwing extends JFrame {
 		lblRes.setBounds(180, 118, 113, 16);
 		panResultados.add(lblRes);
 		
-		JLabel lvlRa2 = new JLabel("0");
-		lvlRa2.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lvlRa2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lvlRa2.setForeground(new Color(210, 105, 30));
-		lvlRa2.setBounds(180, 194, 113, 16);
-		panResultados.add(lvlRa2);
+		JLabel lblRa2 = new JLabel("0");
+		lblRa2.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblRa2.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblRa2.setForeground(new Color(210, 105, 30));
+		lblRa2.setBounds(180, 172, 113, 16);
+		panResultados.add(lblRa2);
 		
 		JLabel lblRa3 = new JLabel("0");
 		lblRa3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		lblRa3.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblRa3.setForeground(new Color(210, 105, 30));
-		lblRa3.setBounds(180, 222, 113, 16);
+		lblRa3.setBounds(180, 200, 113, 16);
 		panResultados.add(lblRa3);
 		
-		JLabel lvlEl3 = new JLabel("0");
-		lvlEl3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lvlEl3.setHorizontalAlignment(SwingConstants.TRAILING);
-		lvlEl3.setForeground(new Color(210, 105, 30));
-		lvlEl3.setBounds(180, 250, 113, 16);
-		panResultados.add(lvlEl3);
+		JLabel lblEl3 = new JLabel("0");
+		lblEl3.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblEl3.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblEl3.setForeground(new Color(210, 105, 30));
+		lblEl3.setBounds(180, 228, 113, 16);
+		panResultados.add(lblEl3);
 		
 		JLabel lblAbs = new JLabel("0");
 		lblAbs.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		lblAbs.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAbs.setForeground(new Color(210, 105, 30));
-		lblAbs.setBounds(180, 278, 113, 16);
+		lblAbs.setBounds(180, 256, 113, 16);
 		panResultados.add(lblAbs);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(20);
-		horizontalStrut.setForeground(new Color(210, 105, 30));
-		horizontalStrut.setFont(null);
-		horizontalStrut.setBounds(16, 144, 261, 11);
-		panResultados.add(horizontalStrut);
-		
-		JLabel lblNewLabel_4 = new JLabel("Valores calculados com o número 1");
+		JLabel lblNewLabel_4 = new JLabel("Valores calculados com o numero 1");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(26, 166, 251, 16);
+		lblNewLabel_4.setBounds(16, 145, 273, 16);
 		panResultados.add(lblNewLabel_4);
 		
 		JLabel label = new JLabel("");
@@ -204,20 +201,43 @@ public class CalculadoraSwing extends JFrame {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setIcon(new ImageIcon(CalculadoraSwing.class.getResource("/imagens/calc.png")));
 		
-		// Ação do botão calcular
+		// Acao do botao calcular
 		JButton btnCalcular = new JButton("");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Torna visivel o painel de resultados
 				panResultados.setVisible(true);
 				
-				// Captura os dois números digitados
-				int n1 = Integer.parseInt(txtN1.getText());
-				int n2 = Integer.parseInt(txtN2.getText());
+				// Captura os dois numeros digitados
+				float n1 = Float.parseFloat(txtN1.getText());
+				float n2 = Float.parseFloat(txtN2.getText());
 				
-				lblAdi.setText(Integer.toString(n1 + n2));
+				// Realiza a adicao dos valores
+				lblAdi.setText(Float.toString(n1 + n2));
 				
+				// Realiza a subtracao dos valores
+				lblSub.setText(Float.toString(n1 - n2));
 				
+				// Realiza a multiplicacao dos valores
+				lblMul.setText(Float.toString(n1 * n2));
+				
+				// Realiza a divisao dos valores
+				lblDiv.setText(Float.toString(n1 / n2));
+				
+				// Realiza o resto da divisao dos valores
+				lblRes.setText(Float.toString(n1 % n2));
+				
+				// Calcula a raiz quadrada do numero 1
+				lblRa2.setText(Double.toString(Math.sqrt(n1)));
+				
+				// Calcula a raiz cubica do numero 1
+				lblRa3.setText(Double.toString(Math.cbrt(n1)));
+				
+				// Eleva o numero 1 ao cubo
+				lblEl3.setText(Double.toString(Math.pow(n1, 3)));
+				
+				// Mostra o valor absoluto do numero 1
+				lblAbs.setText(Float.toString(Math.abs(n1)));
 				
 			}
 		});
