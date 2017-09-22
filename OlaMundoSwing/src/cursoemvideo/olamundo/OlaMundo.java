@@ -67,22 +67,22 @@ public class OlaMundo extends JFrame {
 		panel.add(lblMensagem);
 		
 		JLabel lblIdioma = new JLabel("Idioma:");
-		lblIdioma.setBounds(10, 170, 46, 14);
+		lblIdioma.setBounds(10, 170, 59, 14);
 		panel.add(lblIdioma);
 		
 		JLabel lblResoluo = new JLabel("Resolu\u00E7\u00E3o:");
-		lblResoluo.setBounds(10, 195, 59, 14);
+		lblResoluo.setBounds(10, 195, 68, 14);
 		panel.add(lblResoluo);
 		
 		txtResolucao = new JTextField();
 		txtResolucao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtResolucao.setBounds(79, 192, 86, 20);
+		txtResolucao.setBounds(81, 191, 103, 20);
 		panel.add(txtResolucao);
 		txtResolucao.setColumns(10);
 		
 		txtIdioma = new JTextField();
 		txtIdioma.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtIdioma.setBounds(79, 167, 86, 20);
+		txtIdioma.setBounds(81, 166, 103, 20);
 		panel.add(txtIdioma);
 		txtIdioma.setColumns(10);
 		
@@ -90,21 +90,21 @@ public class OlaMundo extends JFrame {
 		lblData.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblData.setFont(new Font("Calibri", Font.ITALIC, 18));
 		lblData.setForeground(Color.DARK_GRAY);
-		lblData.setBounds(252, 221, 162, 20);
+		lblData.setBounds(133, 221, 281, 41);
 		panel.add(lblData);
 		
 		JButton btnClick = new JButton("Clique aqui");
 		btnClick.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				// Mostra a mensagem "Ol·, mundo!"
-				lblMensagem.setText("Ol·, mundo!");
+				// Mostra a mensagem "Ol√°, mundo!"
+				lblMensagem.setText("Ol√°, mundo!");
 				
 				// Mostra a data e hora
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm" + " - " + "dd/MM/yyyy");
 				lblData.setText(sdf.format(new Date()));
 				
-				// Mostra a resoluÁ„o da tela
+				// Mostra a resolu√ß√£o da tela
 				Toolkit tool = Toolkit.getDefaultToolkit();
 				Dimension d = tool.getScreenSize();
 				txtResolucao.setText(d.width + " x " + d.height);
