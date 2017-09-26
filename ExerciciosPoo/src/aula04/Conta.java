@@ -40,24 +40,38 @@ public class Conta {
 	}
 	
 	public boolean depositar(double valor) {
-		// Verifica sa a conta está aberta
+		// Verifica sa a conta esta aberta
 		if (status) {
-			setSaldo(valor);
+			double novoSaldo = getSaldo() + valor;
+			setSaldo(novoSaldo);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	/*
-	public boolean sacar() {
-		
+	
+	public boolean sacar(double valor) {
+		// Verifica sa a conta esta aberta
+		if (status) {
+			double novoSaldo = getSaldo() - valor;
+			setSaldo(novoSaldo);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean pagarMensalidade() {
-		
+		if (tipoConta == "cc") {
+			sacar(20);
+			return true;
+		} else {
+			sacar(12);
+			return false;
+		}
 	}
-	*/
+	
 
 	// Metodos Getters & Setters
 	public int getNumConta() {
@@ -89,8 +103,8 @@ public class Conta {
 		return saldo;
 	}
 
-	public void setSaldo(double sal) {
-		this.saldo += sal;  
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;  
 	}
 
 	public boolean getStatus() {

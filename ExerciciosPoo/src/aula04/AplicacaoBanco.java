@@ -42,12 +42,20 @@ public class AplicacaoBanco extends JFrame {
 				try {
 					AplicacaoBanco frame = new AplicacaoBanco();
 					frame.setVisible(true);
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	// Verifica se a conta esta aberta
+	private boolean statusConta() {
+		if (conta.getStatus()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -69,7 +77,7 @@ public class AplicacaoBanco extends JFrame {
 		
 		JLabel lblAutoAtendimento = new JLabel("Auto atendimento");
 		panel.add(lblAutoAtendimento);
-		lblAutoAtendimento.setFont(new Font("Symbol", Font.BOLD, 15));
+		lblAutoAtendimento.setFont(new Font("Perpetua Titling MT", Font.BOLD, 15));
 		lblAutoAtendimento.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label = new JLabel("");
@@ -77,13 +85,11 @@ public class AplicacaoBanco extends JFrame {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setIcon(new ImageIcon(AplicacaoBanco.class.getResource("/imagens/shieldLogo.png")));
 		
-		
-		
 		JPanel panOperacoes = new JPanel();
 		panOperacoes.setBounds(6, 168, 488, 200);
 		contentPane.add(panOperacoes);
-		panOperacoes.setVisible(false);
 		panOperacoes.setLayout(null);
+		panOperacoes.setVisible(false);
 		
 		JLabel lblMensagem = new JLabel("");
 		lblMensagem.setBounds(10, 169, 472, 25);
@@ -95,24 +101,18 @@ public class AplicacaoBanco extends JFrame {
 		panSacar.setBounds(5, 5, 110, 75);
 		panOperacoes.add(panSacar);
 		panSacar.setLayout(null);
+		panSacar.setVisible(false);
 		
 		txtSacar = new JTextField();
 		txtSacar.setBounds(6, 6, 100, 26);
 		panSacar.add(txtSacar);
 		txtSacar.setColumns(10);
 		
-		JButton btnSacConfirm = new JButton("Sacar");
-		btnSacConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnSacConfirm.setBounds(6, 41, 100, 29);
-		panSacar.add(btnSacConfirm);
-		
 		JPanel panSaldo = new JPanel();
 		panSaldo.setBounds(139, 6, 218, 36);
 		panOperacoes.add(panSaldo);
 		panSaldo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panSaldo.setVisible(false);
 		
 		JLabel lblSaldoAtual = new JLabel("Saldo atual");
 		panSaldo.add(lblSaldoAtual);
@@ -126,12 +126,10 @@ public class AplicacaoBanco extends JFrame {
 		panOperacoes.add(panMensalidade);
 		panMensalidade.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panMensalidade.setVisible(false);
+		panMensalidade.setVisible(false);
 		
 		JLabel lblMsgMensalidade = new JLabel("");
 		panMensalidade.add(lblMsgMensalidade);
-		
-		JButton btnPagar = new JButton("Pagar");
-		panMensalidade.add(btnPagar);
 		
 		JPanel panNovaConta = new JPanel();
 		panNovaConta.setBounds(139, 10, 212, 154);
@@ -170,6 +168,12 @@ public class AplicacaoBanco extends JFrame {
 		panDepositar.setBounds(330, 5, 110, 75);
 		panOperacoes.add(panDepositar);
 		panDepositar.setLayout(null);
+		panDepositar.setVisible(false);
+		
+		txtDeposito = new JTextField();
+		txtDeposito.setBounds(6, 6, 98, 26);
+		panDepositar.add(txtDeposito);
+		txtDeposito.setColumns(10);
 		
 		// Criar conta no banco
 		JButton btnCriarConta = new JButton("Criar conta");
@@ -195,7 +199,7 @@ public class AplicacaoBanco extends JFrame {
 		btnFechar.setBounds(450, 6, 32, 32);
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Limpa a tela de operacoes
+				// Limpa a tela de operacoes e campos de texto
 				panNovaConta.setVisible(false);
 				panMensalidade.setVisible(false);
 				panSaldo.setVisible(false);
@@ -203,16 +207,16 @@ public class AplicacaoBanco extends JFrame {
 				panSacar.setVisible(false);
 				panDepositar.setVisible(false);
 				lblMensagem.setText("");
+				txtDono.setText("");
+				txtDeposito.setText("");
+				txtNumero.setText("");
+				txtSacar.setText("");
 			}
 		});
 		btnFechar.setIcon(new ImageIcon(AplicacaoBanco.class.getResource("/imagens/btnClose.png")));
 		panOperacoes.add(btnFechar);
 		
-		txtDeposito = new JTextField();
-		txtDeposito.setBounds(6, 6, 98, 26);
-		panDepositar.add(txtDeposito);
-		txtDeposito.setColumns(10);
-		
+		// Confirma o deposito
 		JButton btnDepConfirm = new JButton("Depositar");
 		btnDepConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -221,40 +225,104 @@ public class AplicacaoBanco extends JFrame {
 				if (res) {
 					lblMensagem.setText("Foi depositado em sua conta R$ " + valor);
 				} else {
-					lblMensagem.setText("A conta está fechada. Para depositar, favor abrir uma conta");
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
 				}
 			}
 		});
 		btnDepConfirm.setBounds(6, 40, 98, 29);
 		panDepositar.add(btnDepConfirm);
 		
+		// Confirma o saque
+		JButton btnSacConfirm = new JButton("Sacar");
+		btnSacConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double valor = Double.parseDouble(txtSacar.getText());
+				Boolean res = conta.sacar(valor);
+				if (res) {
+					lblMensagem.setText("Foi sacado em sua conta R$ " + valor);
+				} else {
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}
+			}
+		});
+		btnSacConfirm.setBounds(6, 41, 100, 29);
+		panSacar.add(btnSacConfirm);
+		
+		// Pagar mensalidade
+		JButton btnPagar = new JButton("Pagar");
+		btnPagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean res = conta.pagarMensalidade();
+				if (res) {
+					lblMensagem.setText("<html>Foi debitado R$20,00.</html>");	
+				} else {
+					lblMensagem.setText("<html>Foi debitado R$12,00.</html>");
+				}					
+			}
+		});
+		panMensalidade.add(btnPagar);
+		
 		JButton btnMensalidade = new JButton("Pagar Mensalidade");
-		btnMensalidade.setBounds(6, 103, 132, 41);
+		btnMensalidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (statusConta()) {
+					panMensalidade.setVisible(true);
+					panSaldo.setVisible(false);
+					panSacar.setVisible(false);
+					panDepositar.setVisible(false);
+					panOperacoes.setVisible(true);
+					panNovaConta.setVisible(false);
+					lblMensagem.setText("");
+					
+					if (conta.getTipoConta().equals("cc")) {
+						lblMsgMensalidade.setText("<html>Sera debitado R$20,00 de sua conta corrente.</html>");	
+					} else {
+						lblMsgMensalidade.setText("<html>Sera debitado R$12,00 de sua conta poupanca.</html>");
+					}	
+				} else {
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}
+			}
+		});
+		btnMensalidade.setBounds(6, 61, 132, 41);
 		contentPane.add(btnMensalidade);
 		
 		JButton btnSacar = new JButton("Sacar");
 		btnSacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panMensalidade.setVisible(false);
-				panSaldo.setVisible(false);
-				panSacar.setVisible(true);
-				panDepositar.setVisible(false);
-				panOperacoes.setVisible(true);
-				panNovaConta.setVisible(false);
+				if (statusConta()) {
+					panMensalidade.setVisible(false);
+					panSaldo.setVisible(false);
+					panSacar.setVisible(true);
+					panDepositar.setVisible(false);
+					panOperacoes.setVisible(true);
+					panNovaConta.setVisible(false);
+					lblMensagem.setText("");
+				} else {
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}
 			}
-		});
+		});		
 		btnSacar.setBounds(362, 50, 132, 41);
 		contentPane.add(btnSacar);
 		
 		JButton btnDepositar = new JButton("Depositar");
 		btnDepositar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panMensalidade.setVisible(false);
-				panSaldo.setVisible(false);
-				panSacar.setVisible(false);
-				panDepositar.setVisible(true);
-				panOperacoes.setVisible(true);
-				panNovaConta.setVisible(false);
+				if (statusConta()) {
+					panMensalidade.setVisible(false);
+					panSaldo.setVisible(false);
+					panSacar.setVisible(false);
+					panDepositar.setVisible(true);
+					panOperacoes.setVisible(true);
+					panNovaConta.setVisible(false);
+					lblMensagem.setText("");
+				} else {
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}
 			}
 		});
 		btnDepositar.setBounds(362, 103, 132, 41);
@@ -278,17 +346,48 @@ public class AplicacaoBanco extends JFrame {
 		JButton btnConsultarSaldo = new JButton("Consultar Saldo");
 		btnConsultarSaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Limpa a tela de operacoes
-				panNovaConta.setVisible(false);
-				panMensalidade.setVisible(false);
-				panSacar.setVisible(false);
-				panDepositar.setVisible(false);
-				panSaldo.setVisible(true);
-				panOperacoes.setVisible(true);
-				txtSaldo.setText(Double.toString(conta.getSaldo()));	
+				if (statusConta()) {
+					panNovaConta.setVisible(false);
+					panMensalidade.setVisible(false);
+					panSacar.setVisible(false);
+					panDepositar.setVisible(false);
+					panSaldo.setVisible(true);
+					panOperacoes.setVisible(true);
+					txtSaldo.setText(Double.toString(conta.getSaldo()));
+					lblMensagem.setText("");
+				} else {
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}	
 			}
 		});
-		btnConsultarSaldo.setBounds(6, 50, 132, 41);
+		btnConsultarSaldo.setBounds(6, 11, 132, 41);
 		contentPane.add(btnConsultarSaldo);
+		
+		JButton btnEncerrarConta = new JButton("Encerrar conta");
+		btnEncerrarConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (statusConta()) {
+					panNovaConta.setVisible(false);
+					panMensalidade.setVisible(false);
+					panSacar.setVisible(false);
+					panDepositar.setVisible(false);
+					panSaldo.setVisible(false);
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("");
+					if (conta.getSaldo() == 0) {
+						conta.setStatus(false);
+						lblMensagem.setText("Sua conta foi encerrada");
+					} else {
+						lblMensagem.setText("<html>Voce possui saldo em sua conta. Para encerrar favor retirar o dinheiro.</html>");
+					}
+				} else {
+					panOperacoes.setVisible(true);
+					lblMensagem.setText("Voce precisa abrir uma conta primeiro.");
+				}	
+			}
+		});
+		btnEncerrarConta.setBounds(6, 113, 132, 41);
+		contentPane.add(btnEncerrarConta);
 	}
 }
