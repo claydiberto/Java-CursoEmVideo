@@ -39,6 +39,13 @@ public class CalculaIdade extends JFrame {
 			}
 		});
 	}
+	// Captura o ano atual e subtrai com o ano informado
+	public int CalculoIdade(int nasc) {
+		Calendar calendario = Calendar.getInstance();
+		int anoAtual = calendario.get(Calendar.YEAR);
+		return (anoAtual - nasc);
+	}
+	
 
 	/**
 	 * Create the frame.
@@ -79,12 +86,8 @@ public class CalculaIdade extends JFrame {
 				// Captura o Ano de nascimento informado no campo txtAno
 				int anoNascimento = Integer.parseInt(txtAno.getValue().toString());
 				
-				// Captura o ano atual
-				Calendar calendario = Calendar.getInstance();
-				int anoAtual = calendario.get(Calendar.YEAR);
-				
 				// Atribui ao label lblIdade a subtração do ano atual com o ano de nascimento capturado
-				lblIdade.setText(Integer.toString(anoAtual - anoNascimento));
+				lblIdade.setText(Integer.toString(CalculoIdade(anoNascimento)));
 			}
 		});
 		btnCalcular.setIcon(new ImageIcon(CalculaIdade.class.getResource("/imagens/calculator.png")));
