@@ -1,4 +1,4 @@
-package cursoemvideo.olamundo;
+package olamundo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -98,7 +98,7 @@ public class OlaMundo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// Mostra a mensagem "Olá, mundo!"
-				lblMensagem.setText("Olá, mundo!");
+				lblMensagem.setText("Ol�, mundo!");
 				
 				// Mostra a data e hora
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm" + " - " + "dd/MM/yyyy");

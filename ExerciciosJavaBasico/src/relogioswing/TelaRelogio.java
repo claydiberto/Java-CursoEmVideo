@@ -1,4 +1,4 @@
-package cursoemvideo;
+package relogioswing;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -41,7 +41,7 @@ public class TelaRelogio extends JFrame {
 	 */
 	public TelaRelogio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 150);
+		setBounds(100, 100, 430, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,8 +60,8 @@ public class TelaRelogio extends JFrame {
 		
 		JLabel lblDataHora = new JLabel("Clique no bot\u00E3o");
 		lblDataHora.setForeground(Color.GRAY);
-		lblDataHora.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lblDataHora.setBounds(121, 45, 253, 26);
+		lblDataHora.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lblDataHora.setBounds(121, 45, 283, 26);
 		contentPane.add(lblDataHora);
 		
 		JButton btnBotao = new JButton("Clique aqui");
@@ -71,7 +71,7 @@ public class TelaRelogio extends JFrame {
 				lblDataHora.setText(data.toString());
 			}
 		});
-		btnBotao.setBounds(273, 78, 101, 23);
+		btnBotao.setBounds(303, 82, 101, 23);
 		contentPane.add(btnBotao);
 	}
 }

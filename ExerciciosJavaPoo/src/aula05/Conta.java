@@ -1,4 +1,4 @@
-package aula04;
+package aula05;
 
 public class Conta {
 	public int numConta;

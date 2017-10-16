@@ -12,11 +12,12 @@ public class Foreach {
 		Arrays.sort(v);
 		
 		// Procura o valor 12
-		int pos = Arrays.binarySearch(v, 12);
-		System.out.println(pos);
+		int valor = 12;
+		int pos = Arrays.binarySearch(v, valor);
+		System.out.println("O valor " + valor + " está na posição: [" + --pos + "] do vetor.");
 		
-		for (int valor: v) {
-			System.out.println(valor);
+		for (int vetor: v) {
+			System.out.println(vetor);
 		}
 	}
 
