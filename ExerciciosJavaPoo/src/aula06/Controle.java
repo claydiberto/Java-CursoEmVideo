@@ -20,6 +20,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Controle extends JFrame {
 
@@ -29,6 +30,8 @@ public class Controle extends JFrame {
 	private JLayeredPane contentPane;
 	private boolean on, play;
 	private int vol;
+	private String falante = "/imagens/falante.png";
+	private String falanteMudo = "/imagens/falanteMudo.png";
 	
 	//
 	/// Instancia um objeto (c) da classe ControleRemoto
@@ -90,11 +93,13 @@ public class Controle extends JFrame {
 		panDisplay.setBounds(0, 84, 145, 216);
 		panel.add(panDisplay);
 		panDisplay.setLayout(null);
+		panDisplay.setVisible(false);
 		
-		JLabel lblVolume = new JLabel("ico");
-		lblVolume.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVolume.setBounds(6, 6, 35, 35);
-		panDisplay.add(lblVolume);
+		JLabel lblVolIcon = new JLabel("");
+		lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falante)));
+		lblVolIcon.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVolIcon.setBounds(6, 7, 35, 35);
+		panDisplay.add(lblVolIcon);
 		
 		JSlider sliVolume = new JSlider();
 		sliVolume.setMaximum(15);
@@ -105,13 +110,20 @@ public class Controle extends JFrame {
 		panDisplay.add(sliVolume);
 		
 		JProgressBar barTocando = new JProgressBar();
-		barTocando.setBackground(Color.ORANGE);
+		barTocando.setIndeterminate(false);
+		barTocando.setBackground(Color.GRAY);
 		barTocando.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		barTocando.setMaximum(10);
-		barTocando.setForeground(Color.DARK_GRAY);
+		barTocando.setForeground(Color.ORANGE);
 		barTocando.setOrientation(SwingConstants.VERTICAL);
-		barTocando.setBounds(76, 6, 63, 204);
+		barTocando.setBounds(90, 7, 45, 203);
 		panDisplay.add(barTocando);
+		
+		JLabel lblVolume = new JLabel("");
+		lblVolume.setForeground(Color.GRAY);
+		lblVolume.setFont(new Font("Verdana", Font.BOLD, 13));
+		lblVolume.setBounds(51, 185, 25, 25);
+		panDisplay.add(lblVolume);
 		
 		JLabel lblPwd = new JLabel("OFF");
 		lblPwd.setForeground(new Color(255, 0, 0));
@@ -140,56 +152,47 @@ public class Controle extends JFrame {
 		panel_1.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JButton btnPwd = new JButton("PWD");
-		btnPwd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				refresh();								// Atualiza os valores das variaveis
-				if (on) {								// Verifica se o controle esta ligado (Se positivo)
-					c.desliga();							// Desliga o controle
-					lblPwd.setText("OFF");				// Escreve OFF no label
-					lblPwd.setForeground(Color.RED);		// Define a cor RED para o label
-					sliPwd.setValue(0);					// Define o valor 0 para o slider
-				} else {
-					c.liga();							// Liga o controle
-					lblPwd.setText("ON");				// Escreve ON no label
-					lblPwd.setForeground(Color.BLUE);	// Define a cor BLUE para o label
-					sliPwd.setValue(1);					// Define o valor 1 para o slider
-					sliVolume.setValue(vol);				// Define o valor do volume atual para o slider do volume
-				}
-			}
-		});
-		btnPwd.setFont(new Font("Verdana", Font.PLAIN, 16));
-		btnPwd.setBounds(6, 58, 80, 40);
-		panel_1.add(btnPwd);
-		
 		JToggleButton btnMenu = new JToggleButton("MENU");
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (btnMenu.isSelected()) {				// Verifica se o botao esta selecionado (Se positivo)
-					panDisplay.setVisible(true);			// Torna visivel o painel display
-				} else {
-					panDisplay.setVisible(false);		// Torna invisivel o painel display
+				refresh();
+				if (on) {
+					if (btnMenu.isSelected()) {				// Verifica se o botao esta selecionado (Se positivo)
+						panDisplay.setVisible(true);		// Torna visivel o painel display
+					} else {
+						panDisplay.setVisible(false);		// Torna invisivel o painel display
+					}
 				}
 			}
 		});
-		btnMenu.setFont(new Font("Verdana", Font.PLAIN, 16));
+		btnMenu.setFont(new Font("Verdana", Font.PLAIN, 15));
 		btnMenu.setBounds(98, 58, 80, 40);
 		panel_1.add(btnMenu);
 		
 		JToggleButton btnMute = new JToggleButton("MUTE");
 		btnMute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				// // // Implementar a mudanca o icone lblVolume
+			public void actionPerformed(ActionEvent e) {
 				refresh();
-				if (btnMute.isSelected()) {				// Verifica se o botao esta selecionado (Se positivo)
-					sliVolume.setValue(0);				// Define o slider volume em 0
-								// Define a imagem de alto-falante-mudo no icone do label volume
-				} else {
-					sliVolume.setValue(vol);				// Define o slider volume com o valor do volume atual
-								// Define a imagem de alto-falante-mudo no icone do label volume
+				if (on) { 
+					if (btnMute.isSelected()) {				// Verifica se o botao esta selecionado (Se positivo)
+						sliVolume.setValue(0);				// Define o slider volume em 0
+						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falanteMudo)));	// Define a imagem de alto-falante-mudo no icone do label volume
+						lblVolume.setText(Integer.toString(0));
+						if (play) {
+							barTocando.setIndeterminate(false);
+						}
+					} else {
+						sliVolume.setValue(vol);			// Define o slider volume com o valor do volume atual
+						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falante)));		// Define a imagem de alto-falante-mudo no icone do label volume
+						lblVolume.setText(Integer.toString(vol));
+						if (play) {
+							barTocando.setIndeterminate(true);
+						}
+					}
 				}
 			}
 		});
-		btnMute.setFont(new Font("Verdana", Font.PLAIN, 16));
+		btnMute.setFont(new Font("Verdana", Font.PLAIN, 15));
 		btnMute.setBounds(6, 162, 172, 40);
 		panel_1.add(btnMute);
 		
@@ -197,7 +200,16 @@ public class Controle extends JFrame {
 		btnPlay.setFont(new Font("Verdana", Font.PLAIN, 16));
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				barTocando.setValue(5);
+				refresh();
+				if (on) {
+					if (play) {
+						barTocando.setIndeterminate(false);
+						c.parar();
+					} else if (!btnMute.isSelected()) {
+						barTocando.setIndeterminate(true);
+						c.tocar();
+					}
+				}
 			}
 		});
 		btnPlay.setBounds(6, 110, 172, 40);
@@ -206,10 +218,15 @@ public class Controle extends JFrame {
 		JButton btnMaisVolume = new JButton("+");
 		btnMaisVolume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.maisVolume();
 				refresh();
-				sliVolume.setValue(vol);
-				btnMute.setSelected(false);
+				if (on) {
+					c.maisVolume();
+					refresh();
+					sliVolume.setValue(vol);
+					btnMute.setSelected(false);
+					lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falante)));
+					lblVolume.setText(Integer.toString(vol));
+				}
 			}
 		});
 		btnMaisVolume.setFont(new Font("Verdana", Font.BOLD, 22));
@@ -219,14 +236,54 @@ public class Controle extends JFrame {
 		JButton btnMenosVolume = new JButton("-");
 		btnMenosVolume.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.menosVolume();
 				refresh();
-				sliVolume.setValue(vol);
-				btnMute.setSelected(false);
+				if (on) {
+					c.menosVolume();
+					refresh();
+					sliVolume.setValue(vol);
+					btnMute.setSelected(false);
+					if (vol == 0) {
+						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falanteMudo)));
+					} else {
+						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falante)));
+					}
+					lblVolume.setText(Integer.toString(vol));
+				}
 			}
 		});
 		btnMenosVolume.setFont(new Font("Verdana", Font.BOLD, 22));
 		btnMenosVolume.setBounds(6, 214, 80, 80);
 		panel_1.add(btnMenosVolume);
+		
+		JButton btnPwd = new JButton("PWD");
+		btnPwd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();								// Atualiza os valores das variaveis
+				if (on) {								// Verifica se o controle esta ligado (Se positivo)
+					c.desliga();						// Desliga o controle
+					lblPwd.setText("OFF");				// Escreve OFF no label
+					lblPwd.setForeground(Color.RED);	// Define a cor RED para o label pwd
+					sliPwd.setValue(0);					// Define o valor 0 para o slider pwd
+					sliVolume.setValue(0); 				// Define o valor 0 para o slider do volume
+					lblVolume.setText(Integer.toString(0));
+					panDisplay.setVisible(false);
+					btnMenu.setSelected(false);
+					btnMute.setSelected(false);
+					barTocando.setIndeterminate(false);
+				} else {
+					c.liga();							// Liga o controle
+					lblPwd.setText("ON");				// Escreve ON no label
+					lblPwd.setForeground(Color.BLUE);	// Define a cor BLUE para o label
+					sliPwd.setValue(1);					// Define o valor 1 para o slider
+					sliVolume.setValue(vol);			// Define o valor do volume atual para o slider do volume
+					lblVolume.setText(Integer.toString(vol));
+					btnMenu.setSelected(false);
+					btnMute.setSelected(false);
+				}
+			}
+		});
+		btnPwd.setFont(new Font("Verdana", Font.PLAIN, 15));
+		btnPwd.setBounds(6, 58, 80, 40);
+		panel_1.add(btnPwd);
 	}
 }

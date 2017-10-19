@@ -57,6 +57,7 @@ public class ControleRemoto implements Controlador {
 	@Override
 	public void desliga() {
 		setLigado(false);
+		setTocando(false);
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class ControleRemoto implements Controlador {
 
 	@Override
 	public void maisVolume() {
-		if (volume < 16) volume++;
+		if (volume < 15) volume++;
 	}
 
 	@Override
