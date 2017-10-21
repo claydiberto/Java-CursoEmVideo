@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 public class Controle extends JFrame {
 
 	//
-	/// Atributos para com variaveis tratadas
+	/// Atributos com variaveis tratadas de um Controle
 	//
 	private JLayeredPane contentPane;
 	private boolean on, play;
@@ -174,19 +174,19 @@ public class Controle extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
 				if (on) { 
-					if (btnMute.isSelected()) {				// Verifica se o botao esta selecionado (Se positivo)
-						sliVolume.setValue(0);				// Define o slider volume em 0
+					if (btnMute.isSelected()) {						// Verifica se o botao esta selecionado (Se positivo)
+						sliVolume.setValue(0);						// Define o slider volume em 0
 						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falanteMudo)));	// Define a imagem de alto-falante-mudo no icone do label volume
-						lblVolume.setText(Integer.toString(0));
+						lblVolume.setText(Integer.toString(0));		// Define o valor 0 no label volume
 						if (play) {
 							barTocando.setIndeterminate(false);
 						}
 					} else {
-						sliVolume.setValue(vol);			// Define o slider volume com o valor do volume atual
+						sliVolume.setValue(vol);					// Define o slider volume com o valor do volume atual
 						lblVolIcon.setIcon(new ImageIcon(Controle.class.getResource(falante)));		// Define a imagem de alto-falante-mudo no icone do label volume
-						lblVolume.setText(Integer.toString(vol));
-						if (play) {
-							barTocando.setIndeterminate(true);
+						lblVolume.setText(Integer.toString(vol));	// Define o valor do volume atual no label volume
+						if (play) {									// Se tocando for verdadeiro
+							barTocando.setIndeterminate(true);		// Mostra a barra tocando (em movimento)
 						}
 					}
 				}
@@ -259,26 +259,24 @@ public class Controle extends JFrame {
 		btnPwd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();								// Atualiza os valores das variaveis
-				if (on) {								// Verifica se o controle esta ligado (Se positivo)
-					c.desliga();						// Desliga o controle
-					lblPwd.setText("OFF");				// Escreve OFF no label
-					lblPwd.setForeground(Color.RED);	// Define a cor RED para o label pwd
-					sliPwd.setValue(0);					// Define o valor 0 para o slider pwd
-					sliVolume.setValue(0); 				// Define o valor 0 para o slider do volume
-					lblVolume.setText(Integer.toString(0));
-					panDisplay.setVisible(false);
-					btnMenu.setSelected(false);
-					btnMute.setSelected(false);
-					barTocando.setIndeterminate(false);
+				btnMenu.setSelected(false);					// Retira a seleção do botão menu
+				btnMute.setSelected(false);					// Retira a seleção do mudo
+				barTocando.setIndeterminate(false);			// Define a função da barra de indeterminada como false
+				if (on) {									// Verifica se o controle esta ligado (Se positivo)
+					c.desliga();							// Desliga o controle
+					lblPwd.setText("OFF");					// Escreve OFF no label
+					lblPwd.setForeground(Color.RED);		// Define a cor RED para o label pwd
+					sliPwd.setValue(0);						// Define o valor 0 para o slider pwd
+					sliVolume.setValue(0); 					// Define o valor 0 para o slider do volume
+					lblVolume.setText(Integer.toString(0));	// Defino o valor 0 para o label volume
+					panDisplay.setVisible(false);			// Define a visibilidade do Display como false
 				} else {
-					c.liga();							// Liga o controle
-					lblPwd.setText("ON");				// Escreve ON no label
-					lblPwd.setForeground(Color.BLUE);	// Define a cor BLUE para o label
-					sliPwd.setValue(1);					// Define o valor 1 para o slider
-					sliVolume.setValue(vol);			// Define o valor do volume atual para o slider do volume
-					lblVolume.setText(Integer.toString(vol));
-					btnMenu.setSelected(false);
-					btnMute.setSelected(false);
+					c.liga();								// Liga o controle
+					lblPwd.setText("ON");					// Escreve ON no label
+					lblPwd.setForeground(Color.BLUE);		// Define a cor BLUE para o label
+					sliPwd.setValue(1);						// Define o valor 1 para o slider
+					sliVolume.setValue(vol);				// Define o valor do volume atual para o slider do volume
+					lblVolume.setText(Integer.toString(vol));	// Define o valor atual do volume no label volume
 				}
 			}
 		});
