@@ -33,43 +33,43 @@ public class Lutador {
 	//
 	/// Getters e Setters
 	//
-	private String getNome() {
+	public String getNome() {
 		return nome;
 	}
 
-	private void setNome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	private String getNacionalidade() {
+	public String getNacionalidade() {
 		return nacionalidade;
 	}
 
-	private void setNacionalidade(String nacionalidade) {
+	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
 
-	private int getIdade() {
+	public int getIdade() {
 		return idade;
 	}
 
-	private void setIdade(int idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 
-	private double getAltura() {
+	public double getAltura() {
 		return altura;
 	}
 
-	private void setAltura(double altura) {
+	public void setAltura(double altura) {
 		this.altura = altura;
 	}
 
-	private double getPeso() {
+	public double getPeso() {
 		return peso;
 	}
 
-	private void setPeso(double peso) {
+	public void setPeso(double peso) {
 		this.peso = peso;
 		if (peso < 52.2) {
 			setCategoria("Inválida");
@@ -81,39 +81,38 @@ public class Lutador {
 			setCategoria("Pesado");
 		} else {
 			setCategoria("Inválida");
-		}
-		
+		}		
 	}
 
-	private String getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	private void setCategoria(String categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
-	private int getVitorias() {
+	public int getVitorias() {
 		return vitorias;
 	}
 
-	private void setVitorias(int vitorias) {
+	public void setVitorias(int vitorias) {
 		this.vitorias = vitorias;
 	}
 
-	private int getDerrotas() {
+	public int getDerrotas() {
 		return derrotas;
 	}
 
-	private void setDerrotas(int derrotas) {
+	public void setDerrotas(int derrotas) {
 		this.derrotas = derrotas;
 	}
 
-	private int getEmpates() {
+	public int getEmpates() {
 		return empates;
 	}
 
-	private void setEmpates(int empates) {
+	public void setEmpates(int empates) {
 		this.empates = empates;
 	}
 	
