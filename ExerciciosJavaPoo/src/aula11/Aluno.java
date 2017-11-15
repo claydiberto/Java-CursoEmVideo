@@ -4,16 +4,19 @@ public class Aluno extends Pessoa {
 	//
 	/// Atributos
 	//
-	private int matricula;
-	private String curso;
+	protected int matricula;
+	protected String curso;
 	
 	//
 	/// Construtor
 	//
-	/*public Aluno(String nome, int idade, String sexo, int matricula) {
-		super(nome, idade, sexo);
+	public Aluno(String nome, int idade, String sexo, int matricula) {
+		super(); 
+		this.nome = nome;
+		this.idade = idade;
+		this.sexo = sexo;
 		this.matricula = matricula;
-	}*/
+	}
 	
 	//
 	/// Getters e Setters
@@ -34,14 +37,13 @@ public class Aluno extends Pessoa {
 	//
 	/// Metodos de Aluno
 	//
-	public void cancelarMatricula() {
-		this.curso = "";
-		System.out.println("Matrícula cancelada.");
+	public void pagarMensalidade() {
+		System.out.println("Mensalidade de aluno paga.");
 	}
 	
 	@Override
 	public void apresentar() {
 		super.apresentar();
-		System.out.print(" e o número de sua matrícula é " + getMatricula());
+		System.out.println(" e o nï¿½mero de sua matrï¿½cula ï¿½ " + getMatricula());
 	}
 }
