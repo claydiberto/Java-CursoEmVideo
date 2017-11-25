@@ -12,10 +12,6 @@ public abstract class Pessoa {
 		this.sexo = sexo;
 		this.experiencia = 0;
 	}
-	
-	protected void ganhaExp() {
-		this.experiencia ++;
-	}
 
 	public String getNome() {
 		return nome;
@@ -47,5 +43,9 @@ public abstract class Pessoa {
 
 	public void setExperiencia(float experiencia) {
 		this.experiencia = experiencia;
+	}
+	
+	protected void ganhaExp() {
+		setExperiencia(experiencia += 0.5f);
 	}
 }

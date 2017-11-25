@@ -23,6 +23,10 @@ public class Gafanhoto extends Pessoa {
 		this.totAssistido = totAssistido;
 	}
 	
+	public void viuMaisUm() {
+		this.totAssistido ++;
+	}
+	
 	@Override
 	public String toString() {
 		return "Gafanhoto{ login: " + login + ", totAssitido: " + totAssistido +
